@@ -1,9 +1,21 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const calcularBtn = document.getElementById('calcularBtn');
+    calcularBtn.addEventListener('click', calcularCuotas);
+});
+
 function calcularCuotas() {
-    const totalAmount = parseFloat(prompt("Ingrese el monto total:"));
-    const cuotas = parseInt(prompt("Ingrese la cantidad de cuotas:"));
+    const totalAmountInput = document.getElementById('totalAmount');
+    const cuotasInput = document.getElementById('cuotas');
+
+    const totalAmount = parseFloat(totalAmountInput.value);
+    const cuotas = parseInt(cuotasInput.value);
 
     if (isNaN(totalAmount) || isNaN(cuotas) || totalAmount <= 0 || cuotas <= 0) {
-        alert('Por favor, ingrese valores válidos.');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Por favor, ingrese valores válidos.',
+        });
         return;
     }
 
@@ -15,5 +27,12 @@ function calcularCuotas() {
         mensaje += `Cuota ${i}: ${valorCuota.toFixed(2)}\n`;
     }
 
-    alert(mensaje);
+    Swal.fire({
+        title: 'Resultado',
+        text: mensaje,
+        icon: 'info',
+        confirmButtonText: 'Aceptar'
+    });
+
+    mostrarResultado(mensaje);
 }
